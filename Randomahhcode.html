@@ -91,16 +91,20 @@
       // Detect Language
       outputDiv.innerHTML += `<p>${language} has been detected.</p>`;
 
-      // Open a new tab to run code (For now we simulate a basic response)
+      // Run JavaScript in new window
       if (language === "JavaScript") {
         try {
           const newWindow = window.open();
           newWindow.document.write("<html><body><script>" + code + "</script></body></html>");
         } catch (error) {
-          displayError(error);
+          displayError("Code insufficient: Error, Line = " + error.lineNumber + ", Error = " + error.message);
         }
+      } else if (language === "Python") {
+        displayError("Code insufficient: Error, Line = 1, Error = Python execution is not supported in this browser.");
+      } else if (language === "Java") {
+        displayError("Code insufficient: Error, Line = 1, Error = Java execution is not supported in this browser.");
       } else {
-        displayError("Code insufficient: Error, Line = 1, Error = Language not supported yet.");
+        displayError("Code insufficient: Error, Line = 1, Error = Language not supported.");
       }
     }
 
